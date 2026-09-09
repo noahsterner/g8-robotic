@@ -21,3 +21,5 @@ The Raspberry Pi codebase that controls the robot’s movement, sensors, camera,
 - Communicates with the app via BLE
 - Communicates with the backend via REST
 - Designed to support both manual and autonomous robot operation
+
+TESTEDIT COMMIT LINE - IGNORE LAST LINE, REMOVE YOUR EYES! :)
