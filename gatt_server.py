@@ -10,7 +10,7 @@ def data_received(value, options):
 
 #skapar BLE-enheten
 ble_server = peripheral.Peripheral(
-    adapter_addr= None,
+    adapter_address= None,
     local_name="MyApp"
 )
 
