@@ -10,11 +10,14 @@ class Service:
 
     A service owns its own charactersitics and provides the callbacks required by bluezero
     """
+
+    UUID: str
+
     def __init__(self) -> None:
         self._charactersitcs: list[Any] = []
 
     @abstractmethod
-    def setup(self) -> None:
+    def setup(self, peripheral: Peripheral) -> None:
         """Register this service and its charactersitics wit bluezero"""
         raise NotImplementedError
 
@@ -35,9 +38,14 @@ class gatt_server:
         self._adapter_address: str = list(adapter.Adapter.available())[0].address
         self._peripheral: Peripheral = Peripheral(self._adapter_address, "MyRobot")
         self._services: list[Service] = []
+
     def start(self):
         """start sending out advertising packages"""
         self._peripheral.publish()
+
+    def _setup_services(self):
+        for service in self._services:
+            service.setup(self._peripheral)
 
 if __name__ == "__main__":
     gs = gatt_server()
