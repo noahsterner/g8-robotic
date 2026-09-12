@@ -1,0 +1,16 @@
+#  VIRTUAL ENVIRONMENTS
+.venv
+venv
+
+# PYTHON CACHES
+__pycache__
+
+# PYTEST
+.pytest_cache
+
+# IDE / EDITOR
+.vscode
+.idea/
+
+# OS FILES
+.DS_store
