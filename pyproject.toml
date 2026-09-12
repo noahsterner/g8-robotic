@@ -5,6 +5,7 @@ description = ""
 readme = "README.md"
 license = { file = "LICENSE" }
 dependencies = [
+    "bluezero>=0.5.0"
 ]
 
 [project.optional-dependencies]
