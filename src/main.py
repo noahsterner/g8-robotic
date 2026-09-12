@@ -1,5 +1,6 @@
-from gatt_server import GattServer
+
+def main():
+    pass
 
 if __name__ == "__main__":
-    gs = GattServer()
-    gs.start()
+    main()

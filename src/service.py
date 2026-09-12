@@ -1,24 +1,40 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 from bluezero.peripheral import Peripheral
+from characteristic import Characteristic
 
-from characteristic import Charactersitic
-
-class Service(ABC):
+class Service:
     """Base class for a GATT service.
 
     A service owns its own charactersitics and are responsible for registering them
     """
-
-    uuid: str
-    srv_id: int
-
-    def __init__(self) -> None:
-        self._charactersitcs: list[Charactersitic] = []
-
+    
+    @property
     @abstractmethod
+    def characteristics(self) -> list[Characteristic]:
+        return []
+    
+    @property
+    @abstractmethod
+    def uuid(self) -> str:
+        pass
+
+    @property
+    @abstractmethod
+    def srv_id(self) -> int:
+        pass
+
     def setup(self, peripheral: Peripheral) -> None:
-        """Register this service and its charactersitics with bluezero"""
-        raise NotImplementedError
+        """Add this server to given peripheral"""
+
+        peripheral.add_service(
+                srv_id=self.srv_id, 
+                uuid=self.uuid,
+                primary=True
+        )
+
+        for characteristic in self.characteristics:
+            print(characteristic)
+            characteristic.setup(peripheral)
 
 
