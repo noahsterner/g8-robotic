@@ -34,7 +34,6 @@ class Service:
         )
 
         for characteristic in self.characteristics:
-            print(characteristic)
             characteristic.setup(peripheral)
 
 
