@@ -30,13 +30,11 @@ class Service:
         """Called when a BLE central subscribes/unsubscribse from charactersitics notification"""
         pass
 
-
 class gatt_server:
     def __init__(self) -> None:
         self._adapter_address: str = list(adapter.Adapter.available())[0].address
         self._peripheral: Peripheral = Peripheral(self._adapter_address, "MyRobot")
         self._services: list[Service] = []
-
     def start(self):
         """start sending out advertising packages"""
         self._peripheral.publish()
