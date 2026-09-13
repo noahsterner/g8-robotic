@@ -1,17 +1,17 @@
-from dataclasses import dataclass
 from typing import Any
 
 from bluezero.peripheral import Peripheral
+from BLE.api.flags import CharacteristicFlags
 
 class Characteristic:
     """Base class for a GATT characteristic.
 
     A characteristics belongs to a service and defines the behaviour for reading, writing and notifications.
     """
-    srv_id: int
-    chr_id: int
+    service_id: int
+    characterstic_id: int
     uuid: str
-    flags: list[str]
+    flags: list[CharacteristicFlags]
     value: list[Any]
     notifying: bool
 
@@ -32,8 +32,8 @@ class Characteristic:
 
     def setup(self, peripheral: Peripheral) -> None:
         peripheral.add_characteristic(
-                srv_id = self.srv_id,
-                chr_id = self.chr_id,
+                srv_id = self.service_id,
+                chr_id = self.characterstic_id,
                 uuid = self.uuid,
                 value = self.value,
                 flags = self.flags,

@@ -1,9 +1,9 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 from bluezero.peripheral import Peripheral
-from characteristic import Characteristic
+from BLE.api.characteristic import Characteristic
 
-class Service:
+class Service(ABC):
     """Base class for a GATT service.
 
     A service owns its own charactersitics and are responsible for registering them
@@ -21,14 +21,14 @@ class Service:
 
     @property
     @abstractmethod
-    def srv_id(self) -> int:
+    def service_id(self) -> int:
         pass
 
     def setup(self, peripheral: Peripheral) -> None:
         """Add this server to given peripheral"""
 
         peripheral.add_service(
-                srv_id=self.srv_id, 
+                srv_id=self.service_id, 
                 uuid=self.uuid,
                 primary=True
         )

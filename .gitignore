@@ -1,3 +1,9 @@
+# LOGGER
+*.log
+
+# ENVIRONMENT
+*.env
+
 #  VIRTUAL ENVIRONMENTS
 .venv
 venv
