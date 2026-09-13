@@ -8,12 +8,12 @@ class Service:
 
     A service owns its own charactersitics and are responsible for registering them
     """
-    
+
     @property
     @abstractmethod
     def characteristics(self) -> list[Characteristic]:
         return []
-    
+
     @property
     @abstractmethod
     def uuid(self) -> str:
