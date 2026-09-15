@@ -1,7 +1,7 @@
+from ble.characteristics.command_service.command_characteristics import CommandCharactersitics
 from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
-from ble.characteristics.command_characteristics import CommandCharactersitics
 
 class CommandService(Service):
     def __init__(self, tcp_client: TcpClient):

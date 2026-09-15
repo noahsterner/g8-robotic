@@ -8,7 +8,7 @@ from ble.api.characteristic import Characteristic
 from ble.api.flags import CharacteristicFlags
 from tcp.tcp_client import TcpClient
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 class BatteryLevelCharacteristics(Characteristic):
     service_id = 2
