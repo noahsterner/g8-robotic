@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def enable_test_mode(tcp_client: TcpClient, delay: int):
     while True:
         tcp_client.request("SafetySupervisor.EnableTestMode()")
-        time.sleep(delay)
+        time.sleep(0.5)
 
 # This need to move elsewhere, keep it here for know
 def keep_alive(tcp_client: TcpClient, delay):
@@ -26,8 +26,8 @@ def main():
     tcp_client = TcpClient("localhost", 4711)
     tcp_client.connect()
 
-    # threading.Thread(target=enable_test_mode, kwargs={"delay": 1, "tcp_client": tcp_client}).start()
-    # threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
+    threading.Thread(target=enable_test_mode, kwargs={"delay": 1, "tcp_client": tcp_client}).start()
+    threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
 
     gatt_server = GattServer( name = "MyRobot", services = [
         CommandService(tcp_client)

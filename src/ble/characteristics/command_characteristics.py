@@ -7,7 +7,7 @@ class CommandCharactersitics(Characteristic):
     characterstic_id = 1
     uuid = "1306f3ea-6fb6-48fa-84b9-b9575db45d0f"
     flags = [CharacteristicFlags.WRITE]
-    value = [0,0,0,0]
+    value = [0,0,0,0,0,0]
     notifying = False
 
     def __init__(self, tcp_client: TcpClient) -> None:
@@ -17,10 +17,10 @@ class CommandCharactersitics(Characteristic):
         """Updates the characteristic value."""
 
         self.value = value
-
-        speed: int = (self.value[0] << 8) | self.value [1]
-        steering: int = (self.value[2] << 8) | self.value [3]
     
+        speed: int = int.from_bytes(self.value[0:2], byteorder="big", signed="True")
+        steering: int = int.from_bytes(self.value[2:3], byteorder="big", signed="True")
+
         print(speed, steering)
         self._tcp_client.request(f"Driver.Drive(speed:{speed}, steering:{steering})")
         #time.sleep(60)
