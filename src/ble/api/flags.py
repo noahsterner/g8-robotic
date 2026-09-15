@@ -1,3 +1,5 @@
+# file: ./src/ble/api/flags.py
+
 from enum import Enum
 
 class CharacteristicFlags(str, Enum):

@@ -1,7 +1,9 @@
+# file: ./src/ble/api/service.py
+
 from abc import ABC, abstractmethod
 
 from bluezero.peripheral import Peripheral
-from BLE.api.characteristic import Characteristic
+from ble.api.characteristic import Characteristic
 
 class Service(ABC):
     """Base class for a GATT service.

@@ -1,11 +1,12 @@
+# file: ./src/ble/api/gatt_server.py
+
 import logging
 
 from bluezero.device import Device
-
-from BLE.api.service import Service
-
 from bluezero.peripheral import Peripheral
 from bluezero import adapter
+
+from ble.api.service import Service
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +20,10 @@ class GattServer:
         """start sending out advertising packages"""
         logger.info("Start GATT Server")
 
-        self._peripheral._on_connect = self._on_connect
-        self._peripheral._on_disconncet = self._on_disconncet
+        self._peripheral.on_connect = self._on_connect
+        self._peripheral.on_disconnect = self._on_disconnect
+
+        self._peripheral.advert.manufacturer_data(0x0000, [0x000000])
 
         self._setup_services()
         self._peripheral.publish()
@@ -35,5 +38,5 @@ class GattServer:
     def _on_connect(self, device: Device) -> None:
         logger.info("Central connected: %s", device)
 
-    def _on_disconncet(self, adapter_address: str, device_address: str) -> None:
-        logger.info("Central disconnected: %s", adapter_address, device_address)
+    def _on_disconnect(self, adapter_address: str, device_address: str) -> None:
+        logger.info("Central disconnected: %s, %s", adapter_address, device_address)

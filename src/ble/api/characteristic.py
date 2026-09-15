@@ -1,7 +1,9 @@
+# file: ./src/ble/api/characteristic.py
+
 from typing import Any
 
 from bluezero.peripheral import Peripheral
-from BLE.api.flags import CharacteristicFlags
+from ble.api.flags import CharacteristicFlags
 
 class Characteristic:
     """Base class for a GATT characteristic.
