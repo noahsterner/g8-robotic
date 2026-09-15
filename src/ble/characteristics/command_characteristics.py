@@ -18,10 +18,11 @@ class CommandCharactersitics(Characteristic):
 
         self.value = value
 
-        speed: int = (value[0] << 8) | value [1]
-        steering: int = (value[2] << 8) | value [3]
-
-
-        self._tcp_client.request(f"Driver.drive(speed: {speed}, steering: {steering})")
+        speed: int = (self.value[0] << 8) | self.value [1]
+        steering: int = (self.value[2] << 8) | self.value [3]
+    
+        print(speed, steering)
+        self._tcp_client.request(f"Driver.Drive(speed:{speed}, steering:{steering})")
+        #time.sleep(60)
         return True
 
