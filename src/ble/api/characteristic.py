@@ -13,14 +13,18 @@ class Characteristic:
     """
 
     service_id: int
-    characterstic_id: int
+    characteristic_id: int
     uuid: str
     flags: list[CharacteristicFlags]
     value: list[Any]
     notifying: bool
-    
+
     def __init__(self, tcp_client: TcpClient) -> None:
         self._tcp_client = tcp_client
+
+    def write_value(self, value, options):
+        """Updates the characteristic value."""
+        return None
 
     def read_value(self) -> list[int] | None:
         """Reads the value of the characteristic
@@ -29,24 +33,21 @@ class Characteristic:
         """
         return None
 
-    def update_value(self, value, options) -> bool | None:
-        """Updates the characteristic value."""
-        return None
-
-    def notify(self, notifying: bool) -> None:
+    def notify(self, notifying: bool, characteristic) -> None:
         """Toggle notifications."""
         return None
+
 
     def setup(self, peripheral: Peripheral) -> None:
         peripheral.add_characteristic(
                 srv_id = self.service_id,
-                chr_id = self.characterstic_id,
+                chr_id = self.characteristic_id,
                 uuid = self.uuid,
                 value = self.value,
                 flags = self.flags,
                 notifying = self.notifying,
                 read_callback = self.read_value,
-                write_callback = self.update_value,
+                write_callback = self.write_value,
                 notify_callback = self.notify,
         )
 
