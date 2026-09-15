@@ -7,7 +7,7 @@ class CharacteristicFlags(str, Enum):
     READ = "read"
     WRITE_WITHOUT_RESPONSE = "write-WITHOUT-RESPONSE"
     WRITE = "write"
-    notify = "notify"
+    NOTIFY = "notify"
     INDICATE = "indicate"
     AUTHENTICATED_SIGNED_WRITES = "authenticated-signed-writes"
     EXTENDED_PROPERTIES = "EXTENDED-PROPERTIES"

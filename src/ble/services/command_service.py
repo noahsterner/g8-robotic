@@ -1,11 +1,15 @@
+from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
 from ble.characteristics.command_characteristics import CommandCharactersitics
 
 class CommandService(Service):
+    def __init__(self, tcp_client: TcpClient):
+        super().__init__(tcp_client)
+
     @property
     def characteristics(self) -> list[Characteristic]:
-        return [CommandCharactersitics()]
+        return [CommandCharactersitics(self._tcp_client)]
 
     @property
     def uuid(self) -> str:

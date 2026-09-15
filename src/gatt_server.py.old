@@ -1,6 +1,5 @@
 from bluezero import peripheral #för Linux
 
-
 SERVICE_UUID = "65231bdd-d17d-48c3-80fa-53d8be7efca6"
 CHARACTERISTIC_UUID = "a58001d3-df0a-4b44-a828-bf9fedcf7e3b"
 

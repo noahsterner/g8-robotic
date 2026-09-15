@@ -4,12 +4,16 @@ from abc import ABC, abstractmethod
 
 from bluezero.peripheral import Peripheral
 from ble.api.characteristic import Characteristic
+from tcp.tcp_client import TcpClient
 
 class Service(ABC):
     """Base class for a GATT service.
 
     A service owns its own charactersitics and are responsible for registering them
     """
+    
+    def __init__(self, tcp_client: TcpClient):
+        self._tcp_client = tcp_client
 
     @property
     @abstractmethod

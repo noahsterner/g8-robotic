@@ -28,6 +28,7 @@ class TcpClient:
 
         data: bytearray = bytearray((message + "\n").encode("utf-8"))
         self._socket.sendall(data)
+        logger.info("Write data to tcp socket: %s:%d", self._host, self._port)
 
     def _recv(self) -> bytearray:
         if not self._socket:
@@ -45,6 +46,7 @@ class TcpClient:
 
             message.extend(byte)
 
+        logger.info("Recieved data from tcp socket, %s:%d", self._host, self._port)
         return message
 
 if __name__ == "__main__":
