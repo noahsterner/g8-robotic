@@ -11,27 +11,34 @@ class TcpClient:
         self._port: int = port
         self._socket: socket.socket | None = None
 
-    def connect(self):
+    def connect(self) -> None:
         if not self._socket:
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self._socket.connect((self._host, self._port))
 
             logger.info("Connected to tcp server: %s:%d", self._host, self._port)
 
-    def _write(self, message):
+    def request(self, message: str) -> bytearray:
+        self._write(message)
+        return self._recv()
+
+    def _write(self, message: str) -> None:
         if not self._socket:
             raise RuntimeError("client not connected to a tcp socket")
 
-        data = bytearray((message + "\n").encode("utf-8"))
+        data: bytearray = bytearray((message + "\n").encode("utf-8"))
         self._socket.sendall(data)
 
     def _recv(self) -> bytearray:
         if not self._socket:
             raise RuntimeError("client not connected to a tcp socket")
 
-        message = bytearray()
+        message: bytearray = bytearray()
         while True:
-            byte = self._socket.recv(1)
+            byte: bytes = self._socket.recv(1)
+
+            if len(byte) == 0:
+                raise RuntimeError("client closed connection")
 
             if byte == b"\n":
                 break
@@ -43,7 +50,6 @@ class TcpClient:
 if __name__ == "__main__":
     client = TcpClient("localhost", 4711)
     client.connect()
-    client._write("Hello, from xyz-robotic")
-    recv = client._recv().decode("utf-8")
-    print(recv)
+    data = client.request("Hello, from xyz-robotic")
+    print(data.decode("utf-8"))
 
