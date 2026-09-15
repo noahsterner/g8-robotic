@@ -6,7 +6,7 @@ class CommandCharactersitics(Characteristic):
     service_id = 1
     characterstic_id = 1
     uuid = "1306f3ea-6fb6-48fa-84b9-b9575db45d0f"
-    flags = [CharacteristicFlags.WRITE, CharacteristicFlags.READ]
+    flags = [CharacteristicFlags.WRITE]
     value = [0,0,0,0]
     notifying = False
 
