@@ -1,6 +1,8 @@
 # file: ./src/ble/api/gatt_server.py
 
 import logging
+import signal
+import atexit
 
 from bluezero.device import Device
 from bluezero.peripheral import Peripheral
@@ -26,7 +28,16 @@ class GattServer:
         self._peripheral.advert.manufacturer_data(0x0000, [0x000000])
 
         self._setup_services()
+
+        atexit.register(self.cleanup)
+        signal.signal(signal.SIGTERM, lambda *_: self.cleanup())
+
         self._peripheral.publish()
+
+    def cleanup(self) -> None:
+        logger.info("Cleaning up GATT server")
+        self._peripheral.ad_manager.unregister_advertisement(self._peripheral.advert)
+        self._peripheral.srv_mng.unregister_application(self._peripheral.app)
 
     def _setup_services(self) -> None:
         """Set up and register all services on the peripheral"""

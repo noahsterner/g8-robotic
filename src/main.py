@@ -2,6 +2,7 @@ import logging, threading, time
 from logger_config import setup_logger
 
 from ble.services.command_service import CommandService
+from ble.services.battery_service import BatteryService
 from ble.api.gatt_server import GattServer
 from tcp.tcp_client import TcpClient
 
@@ -16,7 +17,6 @@ def enable_test_mode(tcp_client: TcpClient, delay: int):
 # This need to move elsewhere, keep it here for know
 def keep_alive(tcp_client: TcpClient, delay):
     while True:
-        print("test")
         tcp_client.request("SystemPower.KeepAlive()")
         time.sleep(delay)
 
@@ -31,6 +31,7 @@ def main():
 
     gatt_server = GattServer(name = "MyRobot", services = [
         CommandService(tcp_client),
+        BatteryService(tcp_client)
     ]).start()
 
 if __name__ == "__main__":

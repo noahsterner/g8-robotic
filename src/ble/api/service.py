@@ -14,6 +14,8 @@ class Service(ABC):
     A service owns its own charactersitics and are responsible for registering them
     """
     
+    advertise: bool = True
+
     def __init__(self, tcp_client: TcpClient):
         self._tcp_client = tcp_client
 
@@ -38,7 +40,7 @@ class Service(ABC):
         peripheral.add_service(
                 srv_id=self.service_id, 
                 uuid=self.uuid,
-                primary=True
+                primary=self.advertise
         )
 
         logger.info("registered service: %s", self.uuid)
