@@ -2,7 +2,6 @@ import logging, threading, time
 from logger_config import setup_logger
 
 from ble.services.command_service import CommandService
-from ble.services.battery_service import BatteryService
 from ble.api.gatt_server import GattServer
 from tcp.tcp_client import TcpClient
 
