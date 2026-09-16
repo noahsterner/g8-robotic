@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class CommandCharactersitics(Characteristic):
     service_id = 1
     characteristic_id = 1
-    uuid = "1306f3ea-6fb6-48fa-84b9-b9575db45d0f"
+    uuid = "1309F3EA-6FB6-48FA-84B9-B9575DB45D0F"
     flags = [CharacteristicFlags.WRITE]
     value = [0,0,0,0,]
     notifying = False
@@ -22,8 +22,8 @@ class CommandCharactersitics(Characteristic):
 
         self.value = value
 
-        speed: int = int.from_bytes(self.value[0:2], byteorder="big", signed=True)
-        steering: int = int.from_bytes(self.value[2:4], byteorder="big", signed=True)
+        speed: int = int.from_bytes(bytes(self.value[0:2]), byteorder="big", signed=True)
+        steering: int = int.from_bytes(bytes(self.value[2:4]), byteorder="big", signed=True)
 
         logger.info("write drive command (speed: %d, steering: %d)", speed, steering)
         self._tcp_client.request(f"Driver.Drive(speed:{speed}, steering:{steering})")

@@ -1,10 +1,12 @@
 # file: ./src/ble/api/service.py
-
+import logging
 from abc import ABC, abstractmethod
 
 from bluezero.peripheral import Peripheral
 from ble.api.characteristic import Characteristic
 from tcp.tcp_client import TcpClient
+
+logger = logging.getLogger(__name__)
 
 class Service(ABC):
     """Base class for a GATT service.
@@ -38,6 +40,8 @@ class Service(ABC):
                 uuid=self.uuid,
                 primary=True
         )
+
+        logger.info("registered service: %s", self.uuid)
 
         for characteristic in self.characteristics:
             characteristic.setup(peripheral)

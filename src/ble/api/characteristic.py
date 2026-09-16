@@ -1,10 +1,12 @@
 # file: ./src/ble/api/characteristic.py
-
+import logging
 from typing import Any
 
 from bluezero.peripheral import Peripheral
 from ble.api.flags import CharacteristicFlags
 from tcp.tcp_client import TcpClient
+
+logger = logging.getLogger(__name__)
 
 class Characteristic:
     """Base class for a GATT characteristic.
@@ -50,4 +52,6 @@ class Characteristic:
                 write_callback = self.write_value,
                 notify_callback = self.notify,
         )
+
+        logger.info("registered characteristic: %s", self.uuid)
 

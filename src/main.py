@@ -32,7 +32,6 @@ def main():
 
     gatt_server = GattServer(name = "MyRobot", services = [
         CommandService(tcp_client),
-        BatteryService(tcp_client),
     ]).start()
 
 if __name__ == "__main__":
