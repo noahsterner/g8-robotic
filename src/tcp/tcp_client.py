@@ -2,6 +2,7 @@
 
 import socket
 import logging
+import threading
 
 logger = logging.getLogger(__name__)
 
@@ -10,6 +11,7 @@ class TcpClient:
         self._host: str = host
         self._port: int = port
         self._socket: socket.socket | None = None
+        self._lock: threading.Lock = threading.Lock()
 
     def connect(self) -> None:
         if not self._socket:
@@ -19,8 +21,9 @@ class TcpClient:
             logger.info("Connected to tcp server: %s:%d", self._host, self._port)
 
     def request(self, message: str) -> bytearray:
-        self._write(message)
-        return self._recv()
+        with self._lock:
+            self._write(message)
+            return self._recv()
 
     def _write(self, message: str) -> None:
         if not self._socket:
@@ -28,7 +31,7 @@ class TcpClient:
 
         data: bytearray = bytearray((message + "\n").encode("utf-8"))
         self._socket.sendall(data)
-        logger.info("Write data to tcp socket: %s:%d", self._host, self._port)
+        # logger.info("Write data to tcp socket: %s:%d", self._host, self._port)
 
     def _recv(self) -> bytearray:
         if not self._socket:
@@ -46,7 +49,7 @@ class TcpClient:
 
             message.extend(byte)
 
-        logger.info("Recieved data from tcp socket, %s:%d", self._host, self._port)
+        # logger.info("Recieved data from tcp socket, %s:%d", self._host, self._port)
         return message
 
 if __name__ == "__main__":
