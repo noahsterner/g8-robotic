@@ -9,11 +9,11 @@ class CommandService(Service):
 
     @property
     def characteristics(self) -> list[Characteristic]:
-        return [CommandCharactersitics(self._tcp_client)]
+        return [CommandCharactersitics(self._tcp_client, self.service_id)]
 
     @property
     def uuid(self) -> str:
-        return "f1204501-027a-4d8d-8704-8cb352456dc7"
+        return "FF00"
 
     @property
     def service_id(self) -> int:

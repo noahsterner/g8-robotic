@@ -14,15 +14,15 @@ class Characteristic:
     A characteristics belongs to a service and defines the behaviour for reading, writing and notifications.
     """
 
-    service_id: int
     characteristic_id: int
     uuid: str
     flags: list[CharacteristicFlags]
     value: list[Any]
     notifying: bool
 
-    def __init__(self, tcp_client: TcpClient) -> None:
-        self._tcp_client = tcp_client
+    def __init__(self, tcp_client: TcpClient, service_id) -> None:
+        self._tcp_client: TcpClient = tcp_client
+        self.service_id: int = service_id
 
     def write_value(self, value, options):
         """Updates the characteristic value."""

@@ -29,12 +29,23 @@ class GattServer:
 
         self._setup_services()
 
+        self._cleanup_done = False
         atexit.register(self.cleanup)
-        signal.signal(signal.SIGTERM, lambda *_: self.cleanup())
+        signal.signal(signal.SIGTERM, self._handle_exit_signal)
+        signal.signal(signal.SIGINT, self._handle_exit_signal)
 
         self._peripheral.publish()
 
+    def _handle_exit_signal(self, signum, frame) -> None:
+        logger.info("Signal %s received, shutting down", signum)
+        self.cleanup()
+        raise SystemExit(0)
+
     def cleanup(self) -> None:
+        if self._cleanup_done:
+            return
+
+        self._cleanup_done = True
         logger.info("Cleaning up GATT server")
         self._peripheral.ad_manager.unregister_advertisement(self._peripheral.advert)
         self._peripheral.srv_mng.unregister_application(self._peripheral.app)
@@ -42,7 +53,7 @@ class GattServer:
     def _setup_services(self) -> None:
         """Set up and register all services on the peripheral"""
         logger.info("Setup GATT services and its characteristics")
-
+        
         for service in self._services:
             service.setup(self._peripheral)
 
