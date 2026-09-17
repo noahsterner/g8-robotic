@@ -17,7 +17,17 @@ source_venv() {
 }
 
 setup_project() {
-    python3 -m venv --system-site-packages .venv
+    if ! venv_exist; then
+        log "info" "venv initiated"
+        python3 -m venv --system-site-packages .venv
+    else
+        log "info" ".venv exists"
+    fi
+
+    log "info" "venv sourced"
+    source_venv
+
+    log "info" "Installing packages"
     python3 -m pip install -e ".[dev]"
 }
 
@@ -54,17 +64,8 @@ main() {
         log "info" "python-dbus installed"
     fi
 
-    if ! venv_exist; then
-        setup_project
-        log "info" "venv initiated"
-
-    else
-        log "info" ".venv exists"
-
-    fi
-
-    source_venv
-    log "info" "venv sourced"
+    setup_project
+    log "info" "setup project"
 
     if ! dbus_exist; then
         log "warning" "python-dbus not reachable from venv"
