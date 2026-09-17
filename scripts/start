@@ -32,14 +32,16 @@ setup_project() {
 }
 
 robot_connected() {
-    sudo dmesg | grep -qi "ttyAC0"
+    sudo dmesg | grep -qi "tttACM0"
 }
 
 start_application() {
     log "info" "start kotif-bridge"
-    java -jar ./script/kotif-bridge/kotif-bridge-1.0-SNAPSHOT.jar bridge ttyAC0 4711 MowerApi.json &
+    java -jar ./script/kotif-bridge/kotif-bridge-1.0-SNAPSHOT.jar bridge tttACM0 4711 MowerApi.json &
 
-    log "info" "start kotif-bridge"
+    sleep 5
+
+    log "info" "start python program"
     python3 src/main.py &
 }
 
