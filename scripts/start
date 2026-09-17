@@ -1,12 +1,83 @@
 #!/usr/bin/env bash
 
-if find . -type d -name ".venv" -print -quit | grep -q .; then
-    echo "[info] .venv exists"
-else
-    echo "[info] setup .venv"
-    python3 -m venv --system-site-package .venv
-    echo "[info] install packages"
-    python3 -m pip install -e ".[dev]"
-fi
+log() {
+    echo "[$1] $2"
+}
 
-python3 ./src/main.py
+venv_exist() {
+    [[ -d ".venv" ]]
+}
+
+dbus_exist() {
+    python3 -c "import dbus" 2>/dev/null
+}
+
+source_venv() {
+    source .venv/bin/activate
+}
+
+setup_project() {
+    python3 -m venv --system-site-packages .venv
+    python3 -m pip install -e ".[dev]"
+}
+
+robot_connected() {
+    sudo dmesg | grep -qi "ttyAC0"
+}
+
+start_application() {
+    log "info" "start kotif-bridge"
+    java -jar ./script/kotif-bridge/kotif-bridge-1.0-SNAPSHOT.jar bridge ttyAC0 4711 MowerApi.json &
+
+    log "info" "start kotif-bridge"
+    python3 src/main.py &
+}
+
+java_exists() {
+    command -v java >/dev/null 2>&1
+}
+
+java_install() {
+    sudo apt update
+    sudo apt install default-jdk
+}
+
+main() {
+    if ! java_exists; then
+        java_install
+    fi
+
+    if ! dbus_exist; then
+        log "info" "installing python-dbus"
+        sudo apt install python-dbus
+    else
+        log "info" "python-dbus installed"
+    fi
+
+    if ! venv_exist; then
+        setup_project
+        log "info" "venv initiated"
+
+    else
+        log "info" ".venv exists"
+
+    fi
+
+    source_venv
+    log "info" "venv sourced"
+
+    if ! dbus_exist; then
+        log "warning" "python-dbus not reachable from venv"
+        return 1
+    fi
+
+    if ! robot_connected; then
+        log "warning" "robot is not connected"
+        return 0
+    fi
+
+    start_application
+}
+
+
+main "$@"
