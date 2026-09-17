@@ -31,6 +31,7 @@ class GattServer:
 
         self._cleanup_done = False
         atexit.register(self.cleanup)
+
         signal.signal(signal.SIGTERM, self._handle_exit_signal)
         signal.signal(signal.SIGINT, self._handle_exit_signal)
 

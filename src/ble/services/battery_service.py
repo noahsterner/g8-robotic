@@ -11,11 +11,13 @@ class BatteryService(Service):
 
     @property
     def characteristics(self) -> list[Characteristic]:
-        return [BatteryLevelCharacteristic(self._tcp_client, self.service_id)]
+        return [
+            BatteryLevelCharacteristic(self._tcp_client, self.service_id)
+        ]
 
     @property
     def uuid(self) -> str:
-        return "180F"
+        return "FF10"
 
     @property
     def service_id(self) -> int:

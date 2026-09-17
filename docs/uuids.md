@@ -33,14 +33,14 @@ Controls the speed and steering of the robot.
 This service is used to provide information to the central about the robots battery level.
 
 ### Service UUID 
-0000180F-0000-1000-8000-00805F9B34FB 
+0000FF10-0000-1000-8000-00805F9B34FB 
 
 ### Characteristics 
 
 #### Battery Level 
 Provides the robots battery level as a percentage within the range (0-100).
 
-- UUID: 0000FF01-0000-1000-8000-00805F9B34FB
+- UUID: 0000FF11-0000-1000-8000-00805F9B34FB
 - Flags: Read, Notify 
 - Data: 1 bytes 
 
