@@ -5,6 +5,9 @@ from ble.services.command_service import CommandService
 from ble.services.battery_service import BatteryService
 from ble.api.gatt_server import GattServer
 from tcp.tcp_client import TcpClient
+from tcp.tcp_client import TcpClient
+from autoDrive.autodrive import AutoDrive
+from core.robot import Robot
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +28,10 @@ def main():
 
     tcp_client = TcpClient("localhost", 4711)
     tcp_client.connect()
+    # initialize autodrive and robot class
+    # how to link the button im unsure if this is in main or elsewhere
+    robot = Robot(tcp_client)
+    autoDrive = AutoDrive(robot)
 
     threading.Thread(target=enable_test_mode, kwargs={"delay": 1, "tcp_client": tcp_client}).start()
     threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
