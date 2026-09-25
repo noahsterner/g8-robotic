@@ -37,7 +37,7 @@ def main():
     threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
 
     gatt_server = GattServer(name = "MyRobot", services = [
-        CommandService(tcp_client),
+        CommandService(tcp_client, autoDrive),
         BatteryService(tcp_client)
     ]).start()
 
