@@ -16,9 +16,6 @@ class Service(ABC):
     
     advertise: bool = True
 
-    def __init__(self, tcp_client: TcpClient):
-        self._tcp_client = tcp_client
-
     @property
     @abstractmethod
     def characteristics(self) -> list[Characteristic]:

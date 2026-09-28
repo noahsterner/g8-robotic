@@ -13,8 +13,9 @@ class CommandCharactersitics(Characteristic):
     value = [0,0,0,0]
     notifying = False
 
-    def __init__(self, tcp_client: TcpClient, service_id: int) -> None:
-        super().__init__(tcp_client, service_id)
+    def __init__(self, robot: Robot, service_id: int) -> None:
+        super().__init__(service_id)
+        self._robot: Robot = robot
 
     def write_value(self, value, options):
         """Updates the characteristic value."""
@@ -25,5 +26,5 @@ class CommandCharactersitics(Characteristic):
         steering: int = int.from_bytes(bytes(self.value[2:4]), byteorder="big", signed=True)
 
         logger.info("write drive command (speed: %d, steering: %d)", speed, steering)
-        self._tcp_client.request(f"Driver.Drive(speed:{speed}, steering:{steering})")
+        self._robot.drive(speed, steering)
 

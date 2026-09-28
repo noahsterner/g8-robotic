@@ -3,17 +3,16 @@ from ble.characteristics.command_service.automode_characteristics import AutoMod
 from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
+from core.robot import Robot
 
 class CommandService(Service):
-    def __init__(self, tcp_client: TcpClient):
-        super().__init__(tcp_client)
+    def __init__(self, robot: Robot):
+        super().__init__()
+        self._robot: Robot = robot
 
     @property
     def characteristics(self) -> list[Characteristic]:
-        return [
-            CommandCharactersitics(self._tcp_client, self.service_id),
-            AutoModeCharacteristic(self._tcp_client, self.service_id, self._auto_drive),
-                ]
+        return [CommandCharactersitics(self._robot, self.service_id)]
 
     @property
     def uuid(self) -> str:

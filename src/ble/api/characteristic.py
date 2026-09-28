@@ -20,8 +20,7 @@ class Characteristic:
     value: list[Any]
     notifying: bool
 
-    def __init__(self, tcp_client: TcpClient, service_id) -> None:
-        self._tcp_client: TcpClient = tcp_client
+    def __init__(self, service_id: int) -> None:
         self.service_id: int = service_id
 
     def write_value(self, value, options):

@@ -9,4 +9,3 @@ class Robot:
 
     def drive(self, speed: int, steering: int) -> None:
         self._tcp_client.request(BridgeProtocol.drive(speed, steering))
-

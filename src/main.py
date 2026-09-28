@@ -5,8 +5,11 @@ from ble.services.command_service import CommandService
 from ble.services.battery_service import BatteryService
 from ble.api.gatt_server import GattServer
 from tcp.tcp_client import TcpClient
+<<<<<<< HEAD
 from tcp.tcp_client import TcpClient
 from autoDrive.autodrive import AutoDrive
+=======
+>>>>>>> 957bc37 (feat(feature/ble): connect robot through DI to charactersitcs)
 from core.robot import Robot
 
 logger = logging.getLogger(__name__)
@@ -33,12 +36,14 @@ def main():
     robot = Robot(tcp_client)
     autoDrive = AutoDrive(robot)
 
+    robot: Robot = Robot(tcp_client)
+
     threading.Thread(target=enable_test_mode, kwargs={"delay": 1, "tcp_client": tcp_client}).start()
     threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
 
     gatt_server = GattServer(name = "MyRobot", services = [
-        CommandService(tcp_client, autoDrive),
-        BatteryService(tcp_client)
+        CommandService(robot),
+        # BatteryService(tcp_client)
     ]).start()
 
 if __name__ == "__main__":
