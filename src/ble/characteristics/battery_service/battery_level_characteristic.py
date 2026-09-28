@@ -14,12 +14,12 @@ class BatteryLevelCharacteristic(Characteristic):
     value = [100]
     notifying = False
 
-    def __init__(self, battery: Battery, service_id: int) -> None:
+    def __init__(self, robot: Robot, service_id: int) -> None:
         super().__init__(service_id)
-        self._battery: Battery = battery
+        self._robot: Robot = robot
 
     def read_value(self) -> list[int]:
-        self.value[0] = self._battery.get_battery_level()
+        self.value[0] = self._robot.get_battery_level()
         logger.info("read battery level: %s", self.value)
 
         return self.value
