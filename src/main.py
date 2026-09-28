@@ -8,7 +8,6 @@ from tcp.tcp_client import TcpClient
 from tcp.tcp_client import TcpClient
 from autoDrive.autodrive import AutoDrive
 from core.robot import Robot
-from core.battery import Battery
 
 logger = logging.getLogger(__name__)
 
