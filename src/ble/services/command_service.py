@@ -1,5 +1,5 @@
 from ble.characteristics.command_service.command_characteristics import CommandCharactersitics
-from ble.characteristics.command_service.automode_characteristics import AutoModeCharacteristic
+from ble.characteristics.command_service.setmode_characteristics import SetModeCharacteristics
 from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
@@ -12,7 +12,10 @@ class CommandService(Service):
 
     @property
     def characteristics(self) -> list[Characteristic]:
-        return [CommandCharactersitics(self._robot, self.service_id)]
+        return [
+                CommandCharactersitics(self._robot, self.service_id),
+                SetModeCharacteristics(self._robot, self.service_id)
+        ]
 
     @property
     def uuid(self) -> str:

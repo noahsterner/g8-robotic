@@ -1,3 +1,5 @@
+# file: ./src/ble/characteristics/command_service/command_characteristics.py
+
 import logging
 
 from ble.api.characteristic import Characteristic
