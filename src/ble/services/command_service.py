@@ -1,3 +1,5 @@
+# file: ./src/ble/services/command_service.py
+
 from ble.characteristics.command_service.command_characteristics import CommandCharactersitics
 from ble.characteristics.command_service.setmode_characteristics import SetModeCharacteristics
 from tcp.tcp_client import TcpClient

@@ -1,4 +1,5 @@
 # file: ./src/ble/api/characteristic.py
+
 import logging
 from typing import Any
 

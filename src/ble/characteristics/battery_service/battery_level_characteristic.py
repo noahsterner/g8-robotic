@@ -1,3 +1,5 @@
+# file: ./src/ble/characteristics/battery_service/battery_level_characteristic.py
+
 import logging
 from bluezero import async_tools
 from ble.api.characteristic import Characteristic

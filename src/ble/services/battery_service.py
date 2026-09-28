@@ -1,3 +1,5 @@
+# file: ./src/ble/services/battery_service.py
+
 from ble.characteristics.battery_service.battery_level_characteristic import BatteryLevelCharacteristic
 from tcp.tcp_client import TcpClient
 from ble.api.service import Service
