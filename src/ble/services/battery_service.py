@@ -6,13 +6,14 @@ from ble.api.characteristic import Characteristic
 class BatteryService(Service):
     advertise = True
 
-    def __init__(self, tcp_client: TcpClient):
-        super().__init__(tcp_client)
+    def __init__(self, battery: Battery):
+        super().__init__()
+        self._battery: Battery = battery
 
     @property
     def characteristics(self) -> list[Characteristic]:
         return [
-            BatteryLevelCharacteristic(self._tcp_client, self.service_id)
+            BatteryLevelCharacteristic(self._battery, self.service_id)
         ]
 
     @property

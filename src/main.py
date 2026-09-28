@@ -11,14 +11,15 @@ from autoDrive.autodrive import AutoDrive
 =======
 >>>>>>> 957bc37 (feat(feature/ble): connect robot through DI to charactersitcs)
 from core.robot import Robot
+from core.battery import Battery
 
 logger = logging.getLogger(__name__)
 
 # This need to move elsewhere, keep it here for know
-def enable_test_mode(tcp_client: TcpClient, delay: int):
+def enable_test_mode(tcp_client: TcpClient, delay: float):
     while True:
         tcp_client.request("SafetySupervisor.EnableTestMode()")
-        time.sleep(0.5)
+        time.sleep(delay)
 
 # This need to move elsewhere, keep it here for know
 def keep_alive(tcp_client: TcpClient, delay):
@@ -37,13 +38,14 @@ def main():
     autoDrive = AutoDrive(robot)
 
     robot: Robot = Robot(tcp_client)
+    battery: Battery = Battery(tcp_client)
 
-    threading.Thread(target=enable_test_mode, kwargs={"delay": 1, "tcp_client": tcp_client}).start()
+    threading.Thread(target=enable_test_mode, kwargs={"delay": 0.5, "tcp_client": tcp_client}).start()
     threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
 
     gatt_server = GattServer(name = "MyRobot", services = [
         CommandService(robot),
-        # BatteryService(tcp_client)
+        BatteryService(battery)
     ]).start()
 
 if __name__ == "__main__":
