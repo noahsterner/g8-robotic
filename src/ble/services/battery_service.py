@@ -4,18 +4,19 @@ from ble.characteristics.battery_service.battery_level_characteristic import Bat
 from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
+from core.robot import Robot
 
 class BatteryService(Service):
     advertise = True
 
-    def __init__(self, battery: Battery):
+    def __init__(self, robot: Robot):
         super().__init__()
-        self._battery: Battery = battery
+        self._robot: Robot = Robot
 
     @property
     def characteristics(self) -> list[Characteristic]:
         return [
-            BatteryLevelCharacteristic(self._battery, self.service_id)
+            BatteryLevelCharacteristic(self._robot, self.service_id)
         ]
 
     @property
