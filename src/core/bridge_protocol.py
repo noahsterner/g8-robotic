@@ -12,8 +12,8 @@ class BridgeProtocol:
 
     @staticmethod
     def keep_alive() -> str:
-        return f"SafetySupervisor.EnableTestMode()"
+        return f"SystemPower.KeepAlive()"
 
     @staticmethod
     def enable_test_mode() -> str:
-        return f"SystemPower.KeepAlive()"
+        return f"SafetySupervisor.EnableTestMode()"

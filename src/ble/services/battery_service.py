@@ -11,7 +11,7 @@ class BatteryService(Service):
 
     def __init__(self, robot: Robot):
         super().__init__()
-        self._robot: Robot = Robot
+        self._robot: Robot = robot
 
     @property
     def characteristics(self) -> list[Characteristic]:

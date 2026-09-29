@@ -17,11 +17,11 @@ class Robot:
         self._state: RobotState = RobotState()
     
     def set_mode(self, mode: Mode) -> None:
-        self._mode = mode
+        self._state.mode = mode
 
     def drive(self, speed: int, steering: int) -> None:
         self._state.speed = speed
-        self._state.steering = sterring
+        self._state.steering = steering
 
         self._tcp_client.request(BridgeProtocol.drive(speed, steering))
 
