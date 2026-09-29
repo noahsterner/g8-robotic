@@ -2,7 +2,6 @@
 
 from ble.characteristics.command_service.command_characteristics import CommandCharactersitics
 from ble.characteristics.command_service.setmode_characteristics import SetModeCharacteristics
-from tcp.tcp_client import TcpClient
 from ble.api.service import Service
 from ble.api.characteristic import Characteristic
 from core.robot import Robot

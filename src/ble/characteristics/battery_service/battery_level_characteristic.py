@@ -4,7 +4,7 @@ import logging
 from bluezero import async_tools
 from ble.api.characteristic import Characteristic
 from ble.api.flags import CharacteristicFlags
-from tcp.tcp_client import TcpClient
+from core.robot import Robot
 
 logger = logging.getLogger(__name__)
 
