@@ -17,6 +17,7 @@ __pycache__
 # IDE / EDITOR
 .vscode
 .idea/
+.nvim.lua
 
 # OS FILES
 .DS_store
