@@ -1,7 +1,11 @@
 # file: ./src/main.py
 
 import logging, threading, time
+
+from dotenv import load_dotenv
+
 from logger_config import setup_logger
+from config import Config
 
 from ble.services.command_service import CommandService
 from ble.services.battery_service import BatteryService
@@ -26,9 +30,11 @@ def keep_alive(tcp_client: TcpClient, delay):
         time.sleep(delay)
 
 def main():
+    load_dotenv()
     setup_logger()
 
-    tcp_client = TcpClient("localhost", 4711)
+
+    tcp_client = TcpClient(Config.TCP_HOST, Config.TCP_PORT)
     tcp_client.connect()
 
     # initialize autodrive and robot class
@@ -36,10 +42,10 @@ def main():
     robot: Robot = Robot(tcp_client)
     autoDrive = AutoDrive(robot)
 
-    threading.Thread(target=enable_test_mode, kwargs={"delay": 0.5, "tcp_client": tcp_client}).start()
-    threading.Thread(target=keep_alive, kwargs={"delay": 120, "tcp_client": tcp_client}).start()
+    threading.Thread(target=enable_test_mode, kwargs={"delay": Config.ENABLE_TEST_MODE_INTERVAL, "tcp_client": tcp_client}).start()
+    threading.Thread(target=keep_alive, kwargs={"delay": Config.KEEP_ALIVE_INTERVAL, "tcp_client": tcp_client}).start()
 
-    gatt_server = GattServer(name = "MyRobot", services = [
+    gatt_server = GattServer(name = Config.ROBOT_NAME, services = [
         CommandService(robot),
         BatteryService(robot)
     ]).start()
