@@ -5,9 +5,17 @@ description = ""
 readme = "README.md"
 license = { file = "LICENSE" }
 dependencies = [
-    "bluezero>=0.5.0",
+    "bluezero==0.5.0",
     "requests==2.34.2",
     "python-dotenv==1.2.3",
+
+    # Need to pin package versions to avoid compatibility differences between machines
+    "rplidarc1",
+    "numpy",
+    "pygame",
+    "open3d",
+    "simplification",
+    "robot-hat",
 ]
 
 [project.optional-dependencies]
