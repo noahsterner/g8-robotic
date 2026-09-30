@@ -7,6 +7,7 @@ class Config:
     TCP_PORT: int = int(os.getenv("TCP_PORT", "4711"))
 
     ROBOT_NAME: str = os.getenv("ROBOT_NAME", "MyRobot")
-    
+
+    # value reads in seconds
     ENABLE_TEST_MODE_INTERVAL: float = float(os.getenv("ENABLE_TEST_MODE_INTERVAL", "0.5"))
     KEEP_ALIVE_INTERVAL: float = float(os.getenv("KEEP_ALIVE_INTERVAL", "120"))
